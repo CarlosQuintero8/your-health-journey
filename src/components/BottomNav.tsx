@@ -2,16 +2,15 @@ import { Home, BarChart3, User } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const tabs = [
-  { path: "/", label: "Inicio", icon: Home },
-  { path: "/historial", label: "Historial", icon: BarChart3 },
-  { path: "/perfil", label: "Perfil", icon: User },
+  { path: "/", label: "Home", icon: Home },
+  { path: "/historial", label: "History", icon: BarChart3 },
+  { path: "/perfil", label: "Profile", icon: User },
 ];
 
 const BottomNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Hide on registration flow
   if (location.pathname.startsWith("/registro")) return null;
 
   return (
@@ -20,24 +19,13 @@ const BottomNav = () => {
         {tabs.map(({ path, label, icon: Icon }) => {
           const isActive = location.pathname === path;
           return (
-            <button
-              key={path}
-              onClick={() => navigate(path)}
-              className={`flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all duration-200 min-w-[72px] ${
-                isActive
-                  ? "text-primary bg-secondary"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
+            <button key={path} onClick={() => navigate(path)} className={`flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all duration-200 min-w-[72px] ${isActive ? "text-primary bg-secondary" : "text-muted-foreground hover:text-foreground"}`}>
               <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-              <span className={`text-[11px] ${isActive ? "font-semibold" : "font-medium"}`}>
-                {label}
-              </span>
+              <span className={`text-[11px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
             </button>
           );
         })}
       </div>
-      {/* Safe area for iOS */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   );

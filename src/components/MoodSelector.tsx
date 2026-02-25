@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type Mood = "bien" | "regular" | "mal";
+type Mood = "good" | "okay" | "bad";
 
 const moods: { value: Mood; emoji: string; label: string; colorClass: string }[] = [
-  { value: "bien", emoji: "😊", label: "Bien", colorClass: "bg-success text-success-foreground" },
-  { value: "regular", emoji: "😐", label: "Regular", colorClass: "bg-warning text-warning-foreground" },
-  { value: "mal", emoji: "😔", label: "Mal", colorClass: "bg-danger text-danger-foreground" },
+  { value: "good", emoji: "😊", label: "Good", colorClass: "bg-success text-success-foreground" },
+  { value: "okay", emoji: "😐", label: "Okay", colorClass: "bg-warning text-warning-foreground" },
+  { value: "bad", emoji: "😔", label: "Bad", colorClass: "bg-danger text-danger-foreground" },
 ];
 
 interface MoodSelectorProps {
@@ -20,14 +20,13 @@ const MoodSelector = ({ onSelect }: MoodSelectorProps) => {
   const handleSelect = (mood: Mood) => {
     setSelected(mood);
     onSelect?.(mood);
-    // Navigate to registration with mood pre-selected
     setTimeout(() => navigate(`/registro?mood=${mood}`), 300);
   };
 
   return (
     <div className="animate-fade-in">
       <h2 className="text-xl font-bold text-foreground text-center mb-6">
-        ¿Cómo te sientes hoy?
+        How are you feeling today?
       </h2>
       <div className="flex gap-4 justify-center">
         {moods.map(({ value, emoji, label, colorClass }) => (
